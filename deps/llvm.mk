@@ -25,6 +25,11 @@ endif
 endif
 endif
 
+ifneq ($(BUILD_LLVM_RV),)
+LLVM_RV_GIT_URL ?= https://github.com/cdl-saarland/rv
+LLVM_RV_GIT_VER ?= release_90
+endif
+
 
 # for Monorepo
 LLVM_ENABLE_PROJECTS :=
@@ -377,6 +382,9 @@ ifneq ($(LLVM_LLDB_TAR),)
 	$(TAR) -C $(LLVM_SRC_DIR)/tools/lldb --strip-components 1 -xf $(LLVM_LLDB_TAR)
 endif # LLVM_LLDB_TAR
 endif # LLVM_VER
+ifneq ($(BUILD_LLVM_RV),)
+	git clone -b $(LLVM_RV_GIT_VER) $(LLVM_RV_GIT_URL) $(LLVM_SRC_DIR)/tools/rv
+endif
 	# touch some extra files to ensure bisect works pretty well
 	touch -c $(LLVM_SRC_DIR).extracted
 	touch -c $(LLVM_SRC_DIR)/configure
