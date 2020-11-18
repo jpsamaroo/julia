@@ -1733,7 +1733,6 @@ typedef struct _jl_handler_t {
     int8_t gc_state;
     size_t locks_len;
     sig_atomic_t defer_signal;
-    int finalizers_inhibited;
     jl_timing_block_t *timing_stack;
     size_t world_age;
 } jl_handler_t;
@@ -1756,8 +1755,6 @@ typedef struct _jl_task_t {
     int16_t tid;
     // multiqueue priority
     int16_t prio;
-    // current world age
-    size_t world_age;
     // saved exception stack
     jl_excstack_t *excstack;
     // current exception handler
