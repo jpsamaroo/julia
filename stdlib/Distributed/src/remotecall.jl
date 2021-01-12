@@ -277,8 +277,8 @@ function send_del_client(rr)
 end
 
 function add_client(id, client)
+    rv = lookup_ref(id)
     lock(client_refs) do
-        rv = lookup_ref(id)
         push!(rv.clientset, client)
     end
     nothing
